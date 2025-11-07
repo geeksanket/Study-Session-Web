@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Session App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
+    body {height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center; background: linear-gradient(120deg, #0f2027, #203a43, #2c5364); color: white; transition: background-image 1.5s ease-in-out; overflow: hidden; background-size: cover; background-position: center;}
+
+    body.pink-theme {background: linear-gradient(120deg, #ff9a9e, #fad0c4, #fcb69f); color: #2d2d2d;}
+
+    .main-container {display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px; width: 100%; max-width: 450px; z-index: 10;}
+
+    .theme-toggle, .bg-upload {position: fixed; top: 20px; background: rgba(255,255,255,0.15); border: none; color: white; padding: 10px 20px; border-radius: 10px; cursor: pointer; backdrop-filter: blur(10px); font-weight: 500; transition: 0.3s; z-index: 9999;}
+    .theme-toggle:hover, .bg-upload:hover {background: rgba(255,255,255,0.3);}
+    .theme-toggle {right: 20px;} .bg-upload {left: 20px;}
+
+    .clock, .weather, .container, .music-player, .mode-toggle {background: rgba(255,255,255,0.1); padding: 20px 30px; border-radius: 15px; backdrop-filter: blur(10px); transition: all 0.3s ease; text-align: center; width: 100%;}
+    .clock {font-size: 3rem;} .display {font-size: 3rem; margin: 10px 0;}
+
+    .controls button {background: rgba(255,255,255,0.15); border: none; color: white; padding: 10px 20px; border-radius: 10px; margin: 5px; cursor: pointer; backdrop-filter: blur(10px); transition: all 0.3s ease;}
+    .controls button:hover {background: rgba(255,255,255,0.3); transform: scale(1.05);}
+
+    .custom-file-label {display: inline-block; background: linear-gradient(135deg, #6e8efb, #a777e3); color: white; padding: 12px 25px; border-radius: 12px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease-in-out; animation: glowPulse 2s infinite;}
+    .custom-file-label:hover {transform: scale(1.08); background: linear-gradient(135deg, #8e9efb, #b888f3);}
+    @keyframes glowPulse {0% { box-shadow: 0 0 10px rgba(174, 108, 255, 0.6); } 50% { box-shadow: 0 0 20px rgba(174, 108, 255, 1); } 100% { box-shadow: 0 0 10px rgba(174, 108, 255, 0.6); }}
+  </style>
+</head>
+<body>
+  <button class="theme-toggle">Switch Theme</button>
+  <input type="file" class="bg-upload" accept="image/*" title="Set Background Image">
+
+  <div class="main-container">
+    <div class="weather">☀️ 27°C</div>
+    <button class="mode-toggle" id="mode">Switch to Stopwatch</button>
+    <div class="clock">00:00:00</div>
+
+    <div class="container timer-mode">
+      <div class="time-input"><label>Set Timer (min): </label><input type="number" id="set-minutes" min="1" value="25"></div>
+      <div class="display" id="timer-display">25:00</div>
+      <div class="controls">
+        <button id="start-timer">Start</button>
+        <button id="pause-timer">Pause</button>
+        <button id="reset-timer">Reset</button>
+      </div>
+    </div>
+
+    <div class="container stopwatch-mode" style="display: none;">
+      <div class="display" id="stopwatch-display">00:00:00</div>
+      <div class="controls">
+        <button id="start-stopwatch">Start</button>
+        <button id="pause-stopwatch">Pause</button>
+        <button id="reset-stopwatch">Reset</button>
+      </div>
+    </div>
+
+    <div class="music-player">
+      <h3>🎧 Lofi Beats</h3>
+      <select id="trackSelect">
+        <option value="beat1.mp3">Beat 1</option>
+        <option value="beat2.mp3">Beat 2</option>
+        <option value="beat3.mp3">Beat 3</option>
+        <option value="beat4.mp3">Beat 4</option>
+        <option value="beat5.mp3">Beat 5</option>
+        <option value="beat6.mp3">Beat 6</option>
+        <option value="beat7.mp3">Beat 7</option>
+        <option value="beat8.mp3">Beat 8</option>
+        <option value="beat9.mp3">Beat 9</option>
+        <option value="beat10.mp3">Beat 10</option>
+      </select>
+      <audio id="audioPlayer" controls style="margin-top: 15px; width: 100%; border-radius: 10px; background: rgba(255,255,255,0.15);">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </div>
+
+  <script>
+    const bgUpload = document.querySelector('.bg-upload');
+    const body = document.body;
+    const trackSelect = document.getElementById('trackSelect');
+    const audioPlayer = document.getElementById('audioPlayer');
+
+    bgUpload.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        body.style.backgroundImage = `url('${ev.target.result}')`;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    trackSelect.addEventListener('change', (e) => {
+      audioPlayer.src = e.target.value;
+      audioPlayer.play();
+    });
+  </script>
+</body>
+</html>
