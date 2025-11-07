@@ -3,29 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Study Session App</title>
+  <title>Study Session Web</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
-    body {height: 100vh; width: 100vw; display: flex; justify-content: center; align-items: center; background: linear-gradient(120deg, #0f2027, #203a43, #2c5364); color: white; transition: background-image 1.5s ease-in-out; overflow: hidden; background-size: cover; background-position: center;}
-
-    body.pink-theme {background: linear-gradient(120deg, #ff9a9e, #fad0c4, #fcb69f); color: #2d2d2d;}
-
-    .main-container {display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px; width: 100%; max-width: 450px; z-index: 10;}
-
-    .theme-toggle, .bg-upload {position: fixed; top: 20px; background: rgba(255,255,255,0.15); border: none; color: white; padding: 10px 20px; border-radius: 10px; cursor: pointer; backdrop-filter: blur(10px); font-weight: 500; transition: 0.3s; z-index: 9999;}
+    body {
+      height: 100vh; width: 100vw;
+      display: flex; justify-content: center; align-items: center;
+      background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+      color: white; overflow: hidden;
+      background-size: cover; background-position: center;
+      transition: background 1s ease, color 0.5s ease;
+    }
+    body.pink-theme {
+      background: linear-gradient(120deg, #ff9a9e, #fad0c4, #fcb69f);
+      color: #2d2d2d;
+    }
+    .main-container {display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; max-width: 450px; z-index: 10;}
+    .theme-toggle, .bg-upload {
+      position: fixed; top: 20px; background: rgba(255,255,255,0.15);
+      border: none; color: white; padding: 10px 20px; border-radius: 10px;
+      cursor: pointer; backdrop-filter: blur(10px); font-weight: 500;
+      transition: 0.3s; z-index: 9999;
+    }
     .theme-toggle:hover, .bg-upload:hover {background: rgba(255,255,255,0.3);}
     .theme-toggle {right: 20px;} .bg-upload {left: 20px;}
 
-    .clock, .weather, .container, .music-player, .mode-toggle {background: rgba(255,255,255,0.1); padding: 20px 30px; border-radius: 15px; backdrop-filter: blur(10px); transition: all 0.3s ease; text-align: center; width: 100%;}
-    .clock {font-size: 3rem;} .display {font-size: 3rem; margin: 10px 0;}
-
-    .controls button {background: rgba(255,255,255,0.15); border: none; color: white; padding: 10px 20px; border-radius: 10px; margin: 5px; cursor: pointer; backdrop-filter: blur(10px); transition: all 0.3s ease;}
+    .clock, .weather, .container, .music-player, .mode-toggle {
+      background: rgba(255,255,255,0.1);
+      padding: 20px 30px; border-radius: 15px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      text-align: center; width: 100%;
+    }
+    .clock {font-size: 3rem;}
+    .display {font-size: 3rem; margin: 10px 0;}
+    .controls button {
+      background: rgba(255,255,255,0.15);
+      border: none; color: white; padding: 10px 20px;
+      border-radius: 10px; margin: 5px;
+      cursor: pointer; backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
     .controls button:hover {background: rgba(255,255,255,0.3); transform: scale(1.05);}
-
-    .custom-file-label {display: inline-block; background: linear-gradient(135deg, #6e8efb, #a777e3); color: white; padding: 12px 25px; border-radius: 12px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease-in-out; animation: glowPulse 2s infinite;}
+    .custom-file-label {
+      display: inline-block;
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+      color: white; padding: 12px 25px; border-radius: 12px;
+      font-weight: 600; cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: all 0.3s ease-in-out; animation: glowPulse 2s infinite;
+    }
     .custom-file-label:hover {transform: scale(1.08); background: linear-gradient(135deg, #8e9efb, #b888f3);}
-    @keyframes glowPulse {0% { box-shadow: 0 0 10px rgba(174, 108, 255, 0.6); } 50% { box-shadow: 0 0 20px rgba(174, 108, 255, 1); } 100% { box-shadow: 0 0 10px rgba(174, 108, 255, 0.6); }}
+    @keyframes glowPulse {
+      0% { box-shadow: 0 0 10px rgba(174,108,255,0.6); }
+      50% { box-shadow: 0 0 20px rgba(174,108,255,1); }
+      100% { box-shadow: 0 0 10px rgba(174,108,255,0.6); }
+    }
   </style>
 </head>
 <body>
@@ -59,29 +93,37 @@
     <div class="music-player">
       <h3>🎧 Lofi Beats</h3>
       <select id="trackSelect">
+        <option value="">-- Select a beat --</option>
         <option value="beat1.mp3">Beat 1</option>
         <option value="beat2.mp3">Beat 2</option>
         <option value="beat3.mp3">Beat 3</option>
-        <option value="beat4.mp3">Beat 4</option>
-        <option value="beat5.mp3">Beat 5</option>
-        <option value="beat6.mp3">Beat 6</option>
-        <option value="beat7.mp3">Beat 7</option>
-        <option value="beat8.mp3">Beat 8</option>
-        <option value="beat9.mp3">Beat 9</option>
-        <option value="beat10.mp3">Beat 10</option>
       </select>
-      <audio id="audioPlayer" controls style="margin-top: 15px; width: 100%; border-radius: 10px; background: rgba(255,255,255,0.15);">
-        Your browser does not support the audio element.
-      </audio>
+      <audio id="audioPlayer" controls style="margin-top: 15px; width: 100%; border-radius: 10px; background: rgba(255,255,255,0.15);"></audio>
     </div>
   </div>
 
   <script>
+    const themeBtn = document.querySelector('.theme-toggle');
     const bgUpload = document.querySelector('.bg-upload');
+    const modeBtn = document.getElementById('mode');
     const body = document.body;
     const trackSelect = document.getElementById('trackSelect');
     const audioPlayer = document.getElementById('audioPlayer');
 
+    const timerDisplay = document.getElementById('timer-display');
+    const stopwatchDisplay = document.getElementById('stopwatch-display');
+    const timerContainer = document.querySelector('.timer-mode');
+    const stopwatchContainer = document.querySelector('.stopwatch-mode');
+    let isTimerMode = true;
+    let darkTheme = true;
+
+    
+    themeBtn.addEventListener('click', () => {
+      darkTheme = !darkTheme;
+      body.classList.toggle('pink-theme', !darkTheme);
+    });
+
+    
     bgUpload.addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (!file) return;
@@ -92,9 +134,67 @@
       reader.readAsDataURL(file);
     });
 
+    // Clock update
+    function updateClock() {
+      const now = new Date();
+      document.querySelector('.clock').textContent = now.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+
+    
+    modeBtn.addEventListener('click', () => {
+      isTimerMode = !isTimerMode;
+      timerContainer.style.display = isTimerMode ? 'block' : 'none';
+      stopwatchContainer.style.display = isTimerMode ? 'none' : 'block';
+      modeBtn.textContent = isTimerMode ? 'Switch to Stopwatch' : 'Switch to Timer';
+    });
+
+    
+    let timerInterval;
+    document.getElementById('start-timer').addEventListener('click', () => {
+      clearInterval(timerInterval);
+      let time = parseInt(document.getElementById('set-minutes').value) * 60;
+      timerInterval = setInterval(() => {
+        const m = Math.floor(time / 60);
+        const s = time % 60;
+        timerDisplay.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        time--;
+        if (time < 0) clearInterval(timerInterval);
+      }, 1000);
+    });
+    document.getElementById('pause-timer').addEventListener('click', () => clearInterval(timerInterval));
+    document.getElementById('reset-timer').addEventListener('click', () => {
+      clearInterval(timerInterval);
+      const m = parseInt(document.getElementById('set-minutes').value);
+      timerDisplay.textContent = `${String(m).padStart(2,'0')}:00`;
+    });
+
+    
+    let stopwatchInterval, stopwatchTime = 0;
+    document.getElementById('start-stopwatch').addEventListener('click', () => {
+      clearInterval(stopwatchInterval);
+      stopwatchInterval = setInterval(() => {
+        stopwatchTime++;
+        const h = Math.floor(stopwatchTime / 3600);
+        const m = Math.floor((stopwatchTime % 3600) / 60);
+        const s = stopwatchTime % 60;
+        stopwatchDisplay.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+      }, 1000);
+    });
+    document.getElementById('pause-stopwatch').addEventListener('click', () => clearInterval(stopwatchInterval));
+    document.getElementById('reset-stopwatch').addEventListener('click', () => {
+      clearInterval(stopwatchInterval);
+      stopwatchTime = 0;
+      stopwatchDisplay.textContent = '00:00:00';
+    });
+
+    
     trackSelect.addEventListener('change', (e) => {
-      audioPlayer.src = e.target.value;
-      audioPlayer.play();
+      const track = e.target.value;
+      if (track) {
+        audioPlayer.src = track;
+        audioPlayer.play();
+      }
     });
   </script>
 </body>
