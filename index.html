@@ -117,13 +117,13 @@
     let isTimerMode = true;
     let darkTheme = true;
 
-    
+    // Theme toggle
     themeBtn.addEventListener('click', () => {
       darkTheme = !darkTheme;
       body.classList.toggle('pink-theme', !darkTheme);
     });
 
-    
+    // Background image
     bgUpload.addEventListener('change', (e) => {
       const file = e.target.files[0];
       if (!file) return;
@@ -141,7 +141,7 @@
     }
     setInterval(updateClock, 1000);
 
-    
+    // Switch between modes
     modeBtn.addEventListener('click', () => {
       isTimerMode = !isTimerMode;
       timerContainer.style.display = isTimerMode ? 'block' : 'none';
@@ -149,7 +149,7 @@
       modeBtn.textContent = isTimerMode ? 'Switch to Stopwatch' : 'Switch to Timer';
     });
 
-    
+    // Timer
     let timerInterval;
     document.getElementById('start-timer').addEventListener('click', () => {
       clearInterval(timerInterval);
@@ -169,7 +169,7 @@
       timerDisplay.textContent = `${String(m).padStart(2,'0')}:00`;
     });
 
-    
+    // Stopwatch
     let stopwatchInterval, stopwatchTime = 0;
     document.getElementById('start-stopwatch').addEventListener('click', () => {
       clearInterval(stopwatchInterval);
@@ -188,7 +188,7 @@
       stopwatchDisplay.textContent = '00:00:00';
     });
 
-    
+    // Music Player
     trackSelect.addEventListener('change', (e) => {
       const track = e.target.value;
       if (track) {
